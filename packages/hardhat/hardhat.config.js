@@ -1,3 +1,6 @@
+const { privateKey, infuraProjectId, etherscanApiKey } = require('./secrets.json');
+require("@nomiclabs/hardhat-etherscan");
+
 const { utils } = require("ethers");
 const fs = require("fs");
 
@@ -38,6 +41,11 @@ module.exports = {
   // (then your frontend will talk to your contracts on the live network!)
   // (you will need to restart the `yarn run start` dev server after editing the .env)
 
+  etherscan: {
+    // Your API key for Etherscan
+    // Obtain one at https://etherscan.io/
+    apiKey: etherscanApiKey 
+  },
   networks: {
     localhost: {
       url: "http://localhost:8545",
@@ -65,10 +73,8 @@ module.exports = {
       },
     },
     goerli: {
-      url: "https://goerli.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad", //<---- YOUR INFURA ID! (or it won't work)
-      accounts: {
-        mnemonic: mnemonic(),
-      },
+      url: `https://goerli.infura.io/v3/${infuraProjectId}`,
+      accounts: [privateKey]
     },
     xdai: {
       url: 'https://dai.poa.network',
